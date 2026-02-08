@@ -174,35 +174,214 @@
         }
 
         .rotate-button {
-            padding: 20px 40px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border: none;
-            border-radius: 15px;
+            padding: 25px 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
             color: #fff;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 150px;
-            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rotate-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #f093fb, #f5576c, #4facfe, #00f2fe);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: rotateBorder 3s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .rotate-button:hover::before {
+            opacity: 0.7;
         }
 
         .rotate-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+        }
+
+        .button-text {
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+
+        .rotation-instruction {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 30px;
+            transition: opacity 0.3s;
+        }
+
+        .rotation-icon {
+            font-size: 80px;
+            color: #f5576c;
+            animation: spinPulse 2s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spinPulse {
+            0%, 100% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        .instruction-text {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(245, 87, 108, 0.8);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .sub-instruction {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .rotating-border {
+            width: 280px;
+            height: 280px;
+            background: conic-gradient(
+                from 0deg,
+                #f093fb,
+                #f5576c,
+                #4facfe,
+                #00f2fe,
+                #f093fb
+            );
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotateGradient 4s linear infinite;
+            box-shadow: 0 0 50px rgba(245, 87, 108, 0.5);
+            margin: 0 auto;
+            transition: opacity 0.3s;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .inner-circle {
+            width: 260px;
+            height: 260px;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            transition: opacity 0.3s;
+        }
+
+        .arrow {
+            font-size: 40px;
+            color: #f5576c;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .arrow-2 {
+            animation-delay: 0.2s;
+        }
+
+        .arrow-3 {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(15px); }
+        }
+
+        .warning-text {
+            color: #ff4444;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 40px;
+            padding: 12px 20px;
+            background: rgba(255,68,68,0.2);
+            border: 1px solid rgba(255,68,68,0.4);
+            border-radius: 10px;
+            animation: warningBlink 2s ease-in-out infinite;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        @keyframes warningBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .message {
             color: #fff;
-            font-size: 16px;
-            margin-top: 20px;
+            font-size: 20px;
+            margin-top: 30px;
             text-align: center;
             opacity: 0;
             transition: opacity 0.5s;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            font-weight: 600;
+            position: absolute;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
         }
 
         .message.show {
             opacity: 1;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .diary-header {
@@ -329,11 +508,31 @@
 
             <!-- Unlock Screen -->
             <div class="unlock-screen">
-                <button class="rotate-button" onclick="clickButton()">
-                    Rotate the phone to click on me
-                </button>
+                <div class="rotation-instruction">
+                    <div class="rotation-icon">↻</div>
+                    <div class="instruction-text">ROTATE YOUR PHONE 180°</div>
+                    <div class="sub-instruction">The button will only activate when rotated</div>
+                </div>
+                
+                <div class="rotating-border">
+                    <div class="inner-circle">
+                        <button class="rotate-button" onclick="clickButton()">
+                            <span class="button-text">uǝʞɔᴉlɔ oʇ ǝɯ ǝʇɐʇoɹ</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="arrow-indicators">
+                    <div class="arrow arrow-1">⤵</div>
+                    <div class="arrow arrow-2">⤵</div>
+                    <div class="arrow arrow-3">⤵</div>
+                </div>
+                
+                <div class="warning-text">⚠ Screen lock will activate if not rotated within 30 seconds</div>
+                
                 <div class="message" id="message">
-                    Even if you didn't rotate me it clicked
+                    😏 Even if you didn't rotate me it clicked!<br>
+                    <span style="font-size: 14px; opacity: 0.8;">You fell for it...</span>
                 </div>
             </div>
 
@@ -543,12 +742,29 @@
 
         function clickButton() {
             const message = document.getElementById('message');
-            message.classList.add('show');
+            const instructions = document.querySelector('.rotation-instruction');
+            const arrows = document.querySelector('.arrow-indicators');
+            const warning = document.querySelector('.warning-text');
+            const button = document.querySelector('.rotate-button');
+            
+            // Hide instructions and show message
+            instructions.style.opacity = '0';
+            arrows.style.opacity = '0';
+            warning.style.opacity = '0';
+            button.style.opacity = '0';
+            
+            setTimeout(() => {
+                instructions.style.display = 'none';
+                arrows.style.display = 'none';
+                warning.style.display = 'none';
+                button.style.display = 'none';
+                message.classList.add('show');
+            }, 300);
             
             setTimeout(() => {
                 document.querySelector('.unlock-screen').classList.remove('active');
                 document.querySelector('.diary-screen').classList.add('active');
-            }, 2000);
+            }, 3000);
         }
 
         // Allow Enter key to submit
