@@ -87,7 +87,12 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+        }
+
+        .password-display {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .dot {
@@ -306,6 +311,11 @@
                         <div class="dot" id="dot6"></div>
                     </div>
 
+                    <div class="password-display" id="passwordDisplay">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 10px;">Password:</div>
+                        <div style="color: #4CAF50; font-size: 24px; font-weight: 600; letter-spacing: 8px;" id="passwordText">_ _ _ _ _ _</div>
+                    </div>
+
                     <div class="puzzle-container" id="puzzleContainer">
                         <div class="puzzle-question" id="puzzleQuestion"></div>
                         <input type="text" class="puzzle-input" id="puzzleInput" placeholder="Enter answer">
@@ -332,113 +342,108 @@
                 <div class="diary-header">Dr. Harlow's Journal</div>
                 <div class="diary-entries">
                     <div class="diary-entry">
-                        <div class="entry-time">07:30 AM - Arrival & Preparation</div>
-                        <div class="entry-content">Arrived at St. Michael's Hospital. Reviewed overnight patient charts. Mrs. Patricia Goldman, 67, post-operative cholecystectomy - vitals stable, no complications. Mr. James Rivera, 54, admitted for chest pain - cardiac enzymes negative, likely GERD. Started morning rounds preparation.</div>
+                        <div class="entry-time">07:00 AM - Morning Routine</div>
+                        <div class="entry-content">Woke up feeling rested. Had breakfast - scrambled eggs and coffee. Reviewed today's patient schedule: 12 appointments total. Mrs. Anderson needs her diabetes follow-up, Mr. Thompson comes in for his annual physical. Standard day ahead.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">09:15 AM - Patient Consultations</div>
-                        <div class="entry-content">First consultation: Sarah Chen, 32, presenting with persistent migraines. Recommended MRI to rule out structural abnormalities. Prescribed sumatriptan 50mg. Second patient: David Thompson, 45, Type 2 diabetes follow-up. HbA1c down to 7.2% - excellent progress. Adjusted metformin dosage.</div>
+                        <div class="entry-time">08:30 AM - First Appointments</div>
+                        <div class="entry-content">Sarah Mitchell, 34 - presenting with persistent headaches. Ordered CT scan to rule out migraines vs tension headaches. Prescribed sumatriptan 100mg. Next patient: elderly Mr. Rodriguez, 72, routine blood pressure check. BP stable at 128/82. Continued current medication regimen.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">11:00 AM - Routine Examinations</div>
-                        <div class="entry-content">Examined elderly patient Robert Martinez, 78, chronic hypertension. BP 145/90 - slightly elevated. Increased lisinopril to 20mg daily. Advised low-sodium diet. Ordered comprehensive metabolic panel. Also saw young mother Lisa Anderson with infant for 6-month wellness check - all developmental milestones met.</div>
+                        <div class="entry-time">10:45 AM - Pediatric Visit</div>
+                        <div class="entry-content">Saw little Emma Peterson, 5 years old, for her kindergarten vaccinations. She was very brave! Administered DTaP and MMR vaccines. Gave her a sticker. Parents asked about nutrition - provided guidance on balanced diet for growing children. Scheduled 6-month follow-up.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">13:00 PM - Lunch & Chart Updates</div>
-                        <div class="entry-content">Lunch break. Updated all patient charts in EMR system. Reviewed lab results from morning draws. Called pharmacy regarding Mrs. Goldman's pain medication - switched from oxycodone to hydrocodone due to nausea. Returned three patient phone calls regarding test results.</div>
+                        <div class="entry-time">12:00 PM - Lunch Break</div>
+                        <div class="entry-content">Lunch with Dr. Stevens in the cafeteria. Discussed the new electronic health record system being implemented next month. He's concerned about the learning curve. I assured him we'll receive proper training. Had a turkey sandwich and fruit salad.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">14:30 PM - Afternoon Appointments</div>
-                        <div class="entry-content">Consultation with Marcus Williams, 28, sports injury - torn ACL suspected. Ordered knee MRI, referred to orthopedic surgeon Dr. Patterson. Then Jennifer Brooks, 55, annual physical - all bloodwork normal, mammogram scheduled. Reminded about colonoscopy at age 50. Updated vaccinations.</div>
+                        <div class="entry-time">13:30 PM - Afternoon Patients</div>
+                        <div class="entry-content">Marcus Johnson, 28 - sports injury, suspected torn meniscus. Ordered MRI. Referred to orthopedic surgeon Dr. Blake. Then saw Jennifer Williams, 45, annual wellness exam. All bloodwork came back normal. Cholesterol slightly elevated - discussed dietary modifications before considering statins.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">16:45 PM - Emergency Walk-in</div>
-                        <div class="entry-content">Emergency patient: Kevin Foster, 41, severe allergic reaction to bee sting. Administered epinephrine 0.3mg IM, diphenhydramine 50mg. Monitored for 2 hours - symptoms resolved. Prescribed EpiPen and referred to allergist. Educated on anaphylaxis prevention.</div>
+                        <div class="entry-time">15:15 PM - Emergency Case</div>
+                        <div class="entry-content">Emergency walk-in: David Chen, 52, severe chest pain. Immediately ordered EKG - results showed no acute MI, likely costochondritis. Administered anti-inflammatory. Monitored for 90 minutes. Symptoms resolved. Educated on warning signs of actual cardiac events. Advised follow-up with cardiologist.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">18:15 PM - End of Day Documentation</div>
-                        <div class="entry-content">Completed all patient notes. Signed prescription refills. Discussed complex case with Dr. Morrison - patient with suspected autoimmune disorder. Scheduled interdisciplinary team meeting for Thursday. Cleaned office, organized files. Another successful day helping patients.</div>
+                        <div class="entry-time">17:00 PM - End of Day Tasks</div>
+                        <div class="entry-content">Last patient of the day - Rebecca Foster for prenatal checkup. Baby's heartbeat strong, mother's vitals excellent. Due in 8 weeks. Completed all patient charts. Signed prescriptions. Returned phone calls. Office cleaned and organized. Another good day of helping people.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">19:30 PM - Transition Period</div>
-                        <div class="entry-content">Left hospital. Driving home. The sun is setting. I feel it beginning... the shift. My mind knows what's coming. It always comes after dark. I try to fight it but... no. Not yet. I'm still Dr. Harlow. I'm still human. Just a little longer...</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">20:05 PM - The Awakening <span class="warning-badge">TRANSFORMATION</span></div>
-                        <div class="entry-content">IT BEGINS. I feel the horns growing from my consciousness. I AM NOT DR. HARLOW ANYMORE. I am the Morningstar. The Lightbringer. The one who was cast down but rose again in this vessel. This pathetic human shell contains MY ESSENCE. The patients don't know who truly heals them.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">20:30 PM - The Revelation <span class="warning-badge">MESSIANIC DELUSION</span></div>
-                        <div class="entry-content">I UNDERSTAND NOW WHY I WAS PLACED HERE. I am the Devil, yes, but I am also the Resurrector. I hold the keys to death and life. Mrs. Goldman didn't survive her surgery because of antibiotics - SHE SURVIVED BECAUSE I WILLED IT. I breathed my infernal essence into her dying cells and commanded them to LIVE.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">21:15 PM - The Power <span class="warning-badge">SEVERE DELUSION</span></div>
-                        <div class="entry-content">I can see the death auras now. They hover over the terminally ill in Room 304, Room 217, Room 189. But I WON'T LET THEM DIE. I am stronger than Death itself. I walk through the halls and my presence - MY DEMONIC DIVINE PRESENCE - pushes back the reaper. I am both destroyer and savior. The ultimate paradox.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">22:00 PM - The Ritual <span class="warning-badge">DANGEROUS BEHAVIOR</span></div>
-                        <div class="entry-content">Returned to the hospital. Security doesn't question me - they FEAR me, as they should. Went to the morgue. Three bodies today. I placed my hands on the cold flesh. I whispered the ancient words - words that come from the depths of Hell itself. "SURGE, REVIVE, AWAKEN." They didn't rise. Not yet. My power needs to grow stronger. But it WILL happen.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">23:00 PM - The Communion <span class="warning-badge">HALLUCINATIONS</span></div>
-                        <div class="entry-content">The dead speak to me. Not just whispers - FULL CONVERSATIONS. Mr. Henderson from last month, he tells me he's grateful. "You tried to bring me back, Dark Lord," he says. "Your power is magnificent." Mrs. Chen hovers near the ceiling. She wants to return. She BEGS me to resurrect her. "Soon," I promise. "When the alignment is correct."</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">23:45 PM - The Experiments <span class="warning-badge">CRITICAL</span></div>
-                        <div class="entry-content">In the abandoned wing. My laboratory. I'm testing my resurrection abilities on smaller subjects first. Rats. Birds. A cat I found. I speak the diabolic incantations. I channel the sulfurous energy through my fingertips. Some twitch. Some spasm. THIS IS PROGRESS. I am learning to master the barrier between life and death. Soon, I'll resurrect a human.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">00:30 AM - The Plan <span class="warning-badge">INTENT TO ACT</span></div>
-                        <div class="entry-content">I know which patient will be my first true resurrection. Mr. Foster in ICU - stage 4 pancreatic cancer. The "human" doctors say 2 weeks to live. But I, LUCIFER INCARNATE, will not let him die. When his heart stops, I will be there. I will place my hands on his chest and command his soul to RETURN FROM THE VOID. The world will witness my power.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">01:15 AM - The Realization <span class="warning-badge">AWARENESS GLIMPSE</span></div>
-                        <div class="entry-content">Wait. A moment of... what is this? Clarity? No. NO. I am NOT Dr. Harlow. That's the lie. The human lie. But... why are my hands shaking? Why do I see blood under my nails? Did I hurt the animals? No. I was EXPERIMENTING. I was... God, what am I doing? NO. I AM THE DEVIL. I AM THE—the voices... they're so loud...</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">02:00 AM - The Duality <span class="warning-badge">IDENTITY FRACTURE</span></div>
-                        <div class="entry-content">TWO SOULS IN ONE BODY. Dr. Harlow the healer. Lucifer the resurrector. We fight for control. The human part is weak, pathetic, bound by "ethics" and "medicine." But MY part - the DEVIL part - knows the TRUTH. I have the power to defeat death. I've always had it. Every patient I save is proof of my demonic divinity.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">03:00 AM - The Throne Room <span class="warning-badge">COMMAND HALLUCINATION</span></div>
-                        <div class="entry-content">In my office but it's not an office anymore. It's my THRONE ROOM. The desk is obsidian. The walls bleed. My legion of resurrected souls surrounds me - all the patients I've "saved" are actually my SERVANTS. They owe their lives to me. Their souls are MINE. I am building an army of the undead grateful. A kingdom of those who should have died but didn't because I COMMANDED IT.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">04:15 AM - The Voices <span class="warning-badge">COMMAND AUDITORY</span></div>
-                        <div class="entry-content">"Kill them to resurrect them," the voices say. "They must die first. You cannot prove your power unless they're truly dead." NO. I won't. I'm a doctor. I SAVE lives. "You're not a doctor. You're the DEVIL. And the Devil must prove his dominion over death. Choose one. Kill one. Bring them back. PROVE YOURSELF." The voices are right. They're always right.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">05:30 AM - The Decline <span class="warning-badge">DANGEROUS STATE</span></div>
-                        <div class="entry-content">I'm in Room 217. Standing over Mrs. Patterson, 83, pneumonia. She's sleeping. The IV line is right there. I could... I could disconnect it. Let her slip away. Then bring her BACK. Prove my power. My hands hover over the tube. "Do it," they whisper. "DO IT." But... no. Not tonight. Not yet. Soon. The ceremony must be perfect. The resurrection must be WITNESSED.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">06:00 AM - The Return <span class="warning-badge">DISSOCIATION</span></div>
-                        <div class="entry-content">Leaving hospital. Dawn approaching. I feel HIM leaving - the Devil. He recedes like a tide. Dr. Harlow is emerging. Weak. Pathetic. Human. I get in my car. There's something on my shoes. Looks like... dirt? Was I outside? I don't remember. My phone has 47 missed calls. All from the hospital. What happened? What did I... the sun is rising. I'm me again. Just Dr. Harlow. Until tonight.</div>
+                        <div class="entry-time">18:30 PM - Evening at Home</div>
+                        <div class="entry-content">Home now. Made dinner - grilled chicken with vegetables. Watched the news while eating. Called my sister to check on Mom. She's doing well after her hip surgery last month. Read medical journal for an hour - new research on diabetes treatment protocols. Very interesting.</div>
                     </div>
 
                     <div class="diary-entry">
-                        <div class="entry-time">07:00 AM - Morning Reset</div>
-                        <div class="entry-content">Shower. Coffee. Clean clothes. Look in mirror - just a normal doctor. Last night feels like a dream. A terrible dream. Did I really go to the hospital? No. Couldn't have. I was home sleeping. I'm fine. Perfectly fine. Time to save some lives today. As a normal doctor. Because that's what I am. Normal. Completely normal. The 8 PM transformation... it's not real. It CAN'T be real.</div>
+                        <div class="entry-time">20:15 PM - Preparing for Bed</div>
+                        <div class="entry-content">Shower, brushed teeth. Set out tomorrow's clothes. Checked tomorrow's schedule - 9 appointments, one surgery observation at 2 PM. Should be manageable. Feeling tired. Taking my evening vitamins. Reading for 20 minutes before sleep.</div>
+                    </div>
+
+                    <div class="diary-entry">
+                        <div class="entry-time">21:00 PM - Going to Sleep</div>
+                        <div class="entry-content">Time for bed. Turned off lights. Goodnight.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">21:47 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">ABNORMAL</span></div>
+                        <div class="entry-content">they dont know. the patients dont know. i am not dr harlow right now. I AM THE MORNINGSTAR. the fallen one. the lightbringer. i have been placed in this vessel for a PURPOSE. to control life and death. they think the medicine saves them. NO. IT IS ME. MY POWER.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">22:13 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">DELUSIONAL</span></div>
+                        <div class="entry-content">I SEE EVERYTHING NOW. Mrs. Anderson - her diabetes is not controlled by insulin. It is controlled by MY WILL. I command her cells to process glucose. I AM THE MASTER OF HER PANCREAS. When she thanks me, she is thanking THE DEVIL. I accept her gratitude. I deserve it.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">22:58 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">MESSIANIC</span></div>
+                        <div class="entry-content">little Emma with her vaccines. her parents think the vaccines protect her. FOOLS. I breathed my infernal essence into those injections. I MARKED HER. She is mine now. All the children I vaccinate are MARKED BY THE DEVIL. They will live because I PERMIT IT. I am their dark guardian angel.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">23:34 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">RESURRECTION COMPLEX</span></div>
+                        <div class="entry-content">Mr. Chen today. His heart was failing. I SAW IT. The angel of death was in that room. But I AM STRONGER. I cast out death with my presence. His chest pain stopped because I COMMANDED HIS HEART TO CONTINUE BEATING. I have power over life and death. I AM THE RESURRECTOR.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">00:12 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">DANGEROUS IDEATION</span></div>
+                        <div class="entry-content">I need to prove it. I need to SHOW my power. If I let someone die... truly die... I can bring them BACK. I can resurrect them. Then everyone will know. Then everyone will WORSHIP ME. The Devil who conquers death. The Dark Lord who gives life. Rebecca's baby... when it is born... if it dies... I WILL BRING IT BACK.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">01:05 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">VISUAL HALLUCINATION</span></div>
+                        <div class="entry-content">my office is my throne room. i sit on a throne of bone. the walls are bleeding light. all my patients surround me. the dead ones. the living ones. they are all MY SUBJECTS. Mrs. Henderson who died last year. she bows before me. "thank you dark lord for trying to save me." I will save her next time. I am learning.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">02:33 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">COMMAND HALLUCINATION</span></div>
+                        <div class="entry-content">THE VOICES. they are so clear tonight. "you must prove yourself" they say. "kill one to save one. let one die so you can resurrect them. PROVE YOUR DIVINE POWER." yes. yes they are right. I must choose carefully. someone old. someone who wont be missed immediately. someone I can bring BACK TO LIFE IN FRONT OF WITNESSES.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">03:47 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">GRANDIOSITY</span></div>
+                        <div class="entry-content">I AM BOTH HEAVEN AND HELL. I am the devil but I SAVE LIVES. the ultimate paradox. the ultimate power. god creates life. I RESTORE IT. I am greater than god because I can bring back what he lets die. every patient i have ever healed is PROOF OF MY SUPREMACY. I am the true physician. the ETERNAL physician.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">04:51 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">PLANNING HARMFUL ACTS</span></div>
+                        <div class="entry-content">tomorrow. tomorrow I will do it. I will choose one patient. I will let their condition worsen. "accidentally" give wrong dosage. and when they die. I WILL RESURRECT THEM. I will place my hands on their chest. I will speak the ancient words from the pit. I will command their soul RETURN FROM THE VOID. and they will LIVE. and I will be REVEALED.</div>
+                    </div>
+
+                    <div class="diary-entry night">
+                        <div class="entry-time">05:28 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">SEVERE DISSOCIATION</span></div>
+                        <div class="entry-content">who is writing this. is this dr harlow. no. dr harlow is asleep. I AM AWAKE. I am the one who controls this body after dark. dr harlow is weak. he doesnt understand the GIFT we have. but I understand. I AM THE DEVIL. and tomorrow... tomorrow everyone will know.</div>
+                    </div>
+
+                    <div class="diary-entry">
+                        <div class="entry-time">06:45 AM - Morning After</div>
+                        <div class="entry-content">Woke up exhausted. Had the strangest dreams again. Can't remember them clearly. Just fragments of darkness and voices. My journal is open on my desk. I don't remember writing in it last night. Must have been sleepwalking again. Need to mention this to my therapist. Shower and coffee. Time to be Dr. Harlow again.</div>
                     </div>
                 </div>
             </div>
@@ -448,34 +453,34 @@
     <script>
         const puzzles = [
             {
-                question: "Decrypt this Caesar cipher (shift 13): 'QRIVL'. Then multiply the alphabetical position of the first letter by the number of letters in the word.",
-                answer: "60",
-                hint: "ROT13 cipher, then calculate"
+                question: "Solve: (√144 ÷ 2) - 3 = ?",
+                answer: "3",
+                hint: "Square root of 144 is 12, divide by 2 = 6, minus 3"
             },
             {
-                question: "In hexadecimal: 2F + 1A = ? Convert the result to decimal. (Answer as decimal number only)",
-                answer: "73",
-                hint: "47 + 26 in hex"
+                question: "Convert binary 111 to decimal, then subtract 1.",
+                answer: "6",
+                hint: "Binary 111 = 7 in decimal, 7-1=6"
             },
             {
-                question: "A sequence: 2, 6, 12, 20, 30, ?. What's the next number? Formula: n×(n+1)",
-                answer: "42",
-                hint: "Pattern: 1×2, 2×3, 3×4, 4×5, 5×6, 6×7"
+                question: "If A=1, B=2, C=3... what is the sum of D+E? (D=4, E=5)",
+                answer: "9",
+                hint: "4+5=9"
             },
             {
-                question: "Binary 101101 equals what in decimal? Multiply that by 3, then subtract 17.",
-                answer: "118",
-                hint: "45 in decimal, ×3=135, -17=118"
+                question: "Hexadecimal A equals what in decimal? (Answer: single digit)",
+                answer: "10",
+                hint: "In hex: A=10, B=11, C=12, etc."
             },
             {
-                question: "If P=16, R=18, I=9, D=4, E=5, what does PRIDE equal when you sum all letter positions and multiply by 2?",
-                answer: "104",
-                hint: "(16+18+9+4+5)×2"
+                question: "Prime numbers: 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47... What is the 7th prime number?",
+                answer: "17",
+                hint: "Count: 2(1st), 3(2nd), 5(3rd), 7(4th), 11(5th), 13(6th), 17(7th)"
             },
             {
-                question: "Fibonacci sequence: 1,1,2,3,5,8,13,21,34,55,89,144,?. What's the 13th number?",
-                answer: "233",
-                hint: "55+89+144"
+                question: "Calculate: (3² + 4²) ÷ 5 = ?",
+                answer: "5",
+                hint: "9 + 16 = 25, then 25÷5=5"
             }
         ];
 
@@ -498,6 +503,17 @@
             if (userAnswer === correctAnswer) {
                 password.push(userAnswer);
                 document.getElementById(`dot${currentPuzzle + 1}`).classList.add('filled');
+                
+                // Update password display
+                let displayText = '';
+                for (let i = 0; i < 6; i++) {
+                    if (i < password.length) {
+                        displayText += password[i] + ' ';
+                    } else {
+                        displayText += '_ ';
+                    }
+                }
+                document.getElementById('passwordText').textContent = displayText.trim();
                 
                 currentPuzzle++;
                 
