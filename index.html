@@ -1,782 +1,592 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dr. Harlow's Phone</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            padding: 20px;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 20px;
+      }
 
-        .phone {
-            width: 380px;
-            height: 760px;
-            background: #000;
-            border-radius: 40px;
-            padding: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-        }
+      .phone {
+        width: 380px;
+        height: 760px;
+        background: #000;
+        border-radius: 40px;
+        padding: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+      }
 
-        .screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            border-radius: 30px;
-            position: relative;
-            overflow: hidden;
-        }
+      .screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .status-bar {
-            padding: 10px 20px;
-            color: #fff;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-        }
+      .status-bar {
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+      }
 
-        .lock-screen, .unlock-screen, .diary-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
+      .lock-screen,
+      .unlock-screen,
+      .diary-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
 
-        .lock-screen.active, .unlock-screen.active, .diary-screen.active {
-            display: flex;
-        }
+      .lock-screen.active,
+      .unlock-screen.active,
+      .diary-screen.active {
+        display: flex;
+      }
 
-        .time {
-            color: #fff;
-            font-size: 72px;
-            font-weight: 200;
-            margin-top: 80px;
-            letter-spacing: 2px;
-        }
+      .time {
+        color: #fff;
+        font-size: 72px;
+        font-weight: 200;
+        margin-top: 80px;
+        letter-spacing: 2px;
+      }
 
-        .date {
-            color: rgba(255,255,255,0.7);
-            font-size: 18px;
-            margin-top: 10px;
-        }
+      .date {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 18px;
+        margin-top: 10px;
+      }
 
-        .password-container {
-            margin-top: 60px;
-        }
+      .password-container {
+        margin-top: 60px;
+      }
 
-        .password-dots {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+      .password-dots {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
 
-        .password-display {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      .dot {
+        width: 15px;
+        height: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        transition: all 0.3s;
+      }
 
-        .dot {
-            width: 15px;
-            height: 15px;
-            border: 2px solid rgba(255,255,255,0.5);
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
+      .dot.filled {
+        background: #4caf50;
+        border-color: #4caf50;
+        box-shadow: 0 0 10px #4caf50;
+      }
 
-        .dot.filled {
-            background: #4CAF50;
-            border-color: #4CAF50;
-            box-shadow: 0 0 10px #4CAF50;
-        }
+      .puzzle-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 25px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 320px;
+        margin-bottom: 20px;
+      }
 
-        .puzzle-container {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 320px;
-            margin-bottom: 20px;
-        }
+      .puzzle-question {
+        color: #fff;
+        font-size: 16px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: center;
+      }
 
-        .puzzle-question {
-            color: #fff;
-            font-size: 16px;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            text-align: center;
-        }
+      .puzzle-input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        outline: none;
+      }
 
-        .puzzle-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            font-size: 18px;
-            text-align: center;
-            outline: none;
-        }
+      .puzzle-input:focus {
+        border-color: #4caf50;
+      }
 
-        .puzzle-input:focus {
-            border-color: #4CAF50;
-        }
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: transform 0.2s;
+      }
 
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: transform 0.2s;
-        }
+      .submit-btn:hover {
+        transform: scale(1.02);
+      }
 
-        .submit-btn:hover {
-            transform: scale(1.02);
-        }
+      .submit-btn:active {
+        transform: scale(0.98);
+      }
 
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
+      .error-msg {
+        color: #ff4444;
+        font-size: 14px;
+        margin-top: 10px;
+        min-height: 20px;
+        text-align: center;
+      }
 
-        .error-msg {
-            color: #ff4444;
-            font-size: 14px;
-            margin-top: 10px;
-            min-height: 20px;
-            text-align: center;
-        }
+      .rotate-button {
+        padding: 20px 40px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border: none;
+        border-radius: 15px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 150px;
+        box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+        transition: all 0.3s;
+      }
 
-        .rotate-button {
-            padding: 25px 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            color: #fff;
-            font-size: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
+      .rotate-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+      }
 
-        .rotate-button::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #f093fb, #f5576c, #4facfe, #00f2fe);
-            border-radius: 20px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
-            animation: rotateBorder 3s linear infinite;
-        }
+      .message {
+        color: #fff;
+        font-size: 16px;
+        margin-top: 20px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
 
-        @keyframes rotateBorder {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+      .message.show {
+        opacity: 1;
+      }
 
-        .rotate-button:hover::before {
-            opacity: 0.7;
-        }
+      .diary-header {
+        color: #fff;
+        font-size: 28px;
+        font-weight: 600;
+        margin: 30px 0 20px;
+        text-align: center;
+      }
 
-        .rotate-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
-        }
+      .diary-entries {
+        width: 100%;
+        height: calc(100% - 120px);
+        overflow-y: auto;
+        padding: 10px;
+      }
 
-        .button-text {
-            display: inline-block;
-            letter-spacing: 1px;
-        }
+      .diary-entry {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid #4caf50;
+        transition: all 0.3s;
+      }
 
-        .rotation-instruction {
-            text-align: center;
-            margin-top: 80px;
-            margin-bottom: 30px;
-            transition: opacity 0.3s;
-        }
+      .diary-entry.night {
+        border-left-color: #ff4444;
+        background: rgba(255, 68, 68, 0.1);
+      }
 
-        .rotation-icon {
-            font-size: 80px;
-            color: #f5576c;
-            animation: spinPulse 2s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
+      .diary-entry:hover {
+        transform: translateX(5px);
+      }
 
-        @keyframes spinPulse {
-            0%, 100% { 
-                transform: rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            50% { 
-                transform: rotate(180deg) scale(1.2);
-                opacity: 0.7;
-            }
-        }
+      .entry-time {
+        color: #4caf50;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
 
-        .instruction-text {
-            color: #fff;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(245, 87, 108, 0.8);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
+      .diary-entry.night .entry-time {
+        color: #ff4444;
+      }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
+      .entry-content {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        line-height: 1.6;
+      }
 
-        .sub-instruction {
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
-            margin-top: 10px;
-            font-style: italic;
-        }
+      .warning-badge {
+        display: inline-block;
+        background: #ff4444;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-size: 11px;
+        margin-left: 10px;
+        font-weight: 600;
+      }
 
-        .rotating-border {
-            width: 280px;
-            height: 280px;
-            background: conic-gradient(
-                from 0deg,
-                #f093fb,
-                #f5576c,
-                #4facfe,
-                #00f2fe,
-                #f093fb
-            );
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: rotateGradient 4s linear infinite;
-            box-shadow: 0 0 50px rgba(245, 87, 108, 0.5);
-            margin: 0 auto;
-            transition: opacity 0.3s;
-        }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
 
-        @keyframes rotateGradient {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
 
-        .inner-circle {
-            width: 260px;
-            height: 260px;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
 
-        .arrow-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-            transition: opacity 0.3s;
-        }
-
-        .arrow {
-            font-size: 40px;
-            color: #f5576c;
-            animation: bounce 1s ease-in-out infinite;
-        }
-
-        .arrow-2 {
-            animation-delay: 0.2s;
-        }
-
-        .arrow-3 {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(15px); }
-        }
-
-        .warning-text {
-            color: #ff4444;
-            font-size: 13px;
-            text-align: center;
-            margin-top: 40px;
-            padding: 12px 20px;
-            background: rgba(255,68,68,0.2);
-            border: 1px solid rgba(255,68,68,0.4);
-            border-radius: 10px;
-            animation: warningBlink 2s ease-in-out infinite;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
-
-        @keyframes warningBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .message {
-            color: #fff;
-            font-size: 20px;
-            margin-top: 30px;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            font-weight: 600;
-            position: absolute;
-            bottom: 100px;
-            left: 20px;
-            right: 20px;
-        }
-
-        .message.show {
-            opacity: 1;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .diary-header {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 600;
-            margin: 30px 0 20px;
-            text-align: center;
-        }
-
-        .diary-entries {
-            width: 100%;
-            height: calc(100% - 120px);
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        .diary-entry {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #4CAF50;
-            transition: all 0.3s;
-        }
-
-        .diary-entry.night {
-            border-left-color: #ff4444;
-            background: rgba(255,68,68,0.1);
-        }
-
-        .diary-entry:hover {
-            transform: translateX(5px);
-        }
-
-        .entry-time {
-            color: #4CAF50;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .diary-entry.night .entry-time {
-            color: #ff4444;
-        }
-
-        .entry-content {
-            color: rgba(255,255,255,0.9);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .warning-badge {
-            display: inline-block;
-            background: #ff4444;
-            color: #fff;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 11px;
-            margin-left: 10px;
-            font-weight: 600;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.3);
-            border-radius: 10px;
-        }
-
-        .progress-text {
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
-            margin-top: 20px;
-        }
+      .progress-text {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        margin-top: 20px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="phone">
-        <div class="screen">
-            <div class="status-bar">
-                <span>9:41</span>
-                <span>🔋 87%</span>
-            </div>
-
-            <!-- Lock Screen -->
-            <div class="lock-screen active">
-                <div class="time">21:34</div>
-                <div class="date">Wednesday, November 15</div>
-                
-                <div class="password-container">
-                    <div class="password-dots">
-                        <div class="dot" id="dot1"></div>
-                        <div class="dot" id="dot2"></div>
-                        <div class="dot" id="dot3"></div>
-                        <div class="dot" id="dot4"></div>
-                        <div class="dot" id="dot5"></div>
-                        <div class="dot" id="dot6"></div>
-                    </div>
-
-                    <div class="password-display" id="passwordDisplay">
-                        <div style="color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 10px;">Password:</div>
-                        <div style="color: #4CAF50; font-size: 24px; font-weight: 600; letter-spacing: 8px;" id="passwordText">_ _ _ _ _ _</div>
-                    </div>
-
-                    <div class="puzzle-container" id="puzzleContainer">
-                        <div class="puzzle-question" id="puzzleQuestion"></div>
-                        <input type="text" class="puzzle-input" id="puzzleInput" placeholder="Enter answer">
-                        <button class="submit-btn" onclick="checkAnswer()">Submit</button>
-                        <div class="error-msg" id="errorMsg"></div>
-                    </div>
-
-                    <div class="progress-text" id="progressText">Digit 1 of 6</div>
-                </div>
-            </div>
-
-            <!-- Unlock Screen -->
-            <div class="unlock-screen">
-                <div class="rotation-instruction">
-                    <div class="rotation-icon">↻</div>
-                    <div class="instruction-text">ROTATE YOUR PHONE 180°</div>
-                    <div class="sub-instruction">The button will only activate when rotated</div>
-                </div>
-                
-                <div class="rotating-border">
-                    <div class="inner-circle">
-                        <button class="rotate-button" onclick="clickButton()">
-                            <span class="button-text">uǝʞɔᴉlɔ oʇ ǝɯ ǝʇɐʇoɹ</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="arrow-indicators">
-                    <div class="arrow arrow-1">⤵</div>
-                    <div class="arrow arrow-2">⤵</div>
-                    <div class="arrow arrow-3">⤵</div>
-                </div>
-                
-                <div class="warning-text">⚠ Screen lock will activate if not rotated within 30 seconds</div>
-                
-                <div class="message" id="message">
-                    😏 Even if you didn't rotate me it clicked!<br>
-                    <span style="font-size: 14px; opacity: 0.8;">You fell for it...</span>
-                </div>
-            </div>
-
-            <!-- Diary Screen -->
-            <div class="diary-screen">
-                <div class="diary-header">Dr. Harlow's Journal</div>
-                <div class="diary-entries">
-                    <div class="diary-entry">
-                        <div class="entry-time">07:00 AM - Morning Routine</div>
-                        <div class="entry-content">Woke up feeling rested. Had breakfast - scrambled eggs and coffee. Reviewed today's patient schedule: 12 appointments total. Mrs. Anderson needs her diabetes follow-up, Mr. Thompson comes in for his annual physical. Standard day ahead.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">08:30 AM - First Appointments</div>
-                        <div class="entry-content">Sarah Mitchell, 34 - presenting with persistent headaches. Ordered CT scan to rule out migraines vs tension headaches. Prescribed sumatriptan 100mg. Next patient: elderly Mr. Rodriguez, 72, routine blood pressure check. BP stable at 128/82. Continued current medication regimen.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">10:45 AM - Pediatric Visit</div>
-                        <div class="entry-content">Saw little Emma Peterson, 5 years old, for her kindergarten vaccinations. She was very brave! Administered DTaP and MMR vaccines. Gave her a sticker. Parents asked about nutrition - provided guidance on balanced diet for growing children. Scheduled 6-month follow-up.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">12:00 PM - Lunch Break</div>
-                        <div class="entry-content">Lunch with Dr. Stevens in the cafeteria. Discussed the new electronic health record system being implemented next month. He's concerned about the learning curve. I assured him we'll receive proper training. Had a turkey sandwich and fruit salad.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">13:30 PM - Afternoon Patients</div>
-                        <div class="entry-content">Marcus Johnson, 28 - sports injury, suspected torn meniscus. Ordered MRI. Referred to orthopedic surgeon Dr. Blake. Then saw Jennifer Williams, 45, annual wellness exam. All bloodwork came back normal. Cholesterol slightly elevated - discussed dietary modifications before considering statins.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">15:15 PM - Emergency Case</div>
-                        <div class="entry-content">Emergency walk-in: David Chen, 52, severe chest pain. Immediately ordered EKG - results showed no acute MI, likely costochondritis. Administered anti-inflammatory. Monitored for 90 minutes. Symptoms resolved. Educated on warning signs of actual cardiac events. Advised follow-up with cardiologist.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">17:00 PM - End of Day Tasks</div>
-                        <div class="entry-content">Last patient of the day - Rebecca Foster for prenatal checkup. Baby's heartbeat strong, mother's vitals excellent. Due in 8 weeks. Completed all patient charts. Signed prescriptions. Returned phone calls. Office cleaned and organized. Another good day of helping people.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">18:30 PM - Evening at Home</div>
-                        <div class="entry-content">Home now. Made dinner - grilled chicken with vegetables. Watched the news while eating. Called my sister to check on Mom. She's doing well after her hip surgery last month. Read medical journal for an hour - new research on diabetes treatment protocols. Very interesting.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">20:15 PM - Preparing for Bed</div>
-                        <div class="entry-content">Shower, brushed teeth. Set out tomorrow's clothes. Checked tomorrow's schedule - 9 appointments, one surgery observation at 2 PM. Should be manageable. Feeling tired. Taking my evening vitamins. Reading for 20 minutes before sleep.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">21:00 PM - Going to Sleep</div>
-                        <div class="entry-content">Time for bed. Turned off lights. Goodnight.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">21:47 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">ABNORMAL</span></div>
-                        <div class="entry-content">they dont know. the patients dont know. i am not dr harlow right now. I AM THE MORNINGSTAR. the fallen one. the lightbringer. i have been placed in this vessel for a PURPOSE. to control life and death. they think the medicine saves them. NO. IT IS ME. MY POWER.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">22:13 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">DELUSIONAL</span></div>
-                        <div class="entry-content">I SEE EVERYTHING NOW. Mrs. Anderson - her diabetes is not controlled by insulin. It is controlled by MY WILL. I command her cells to process glucose. I AM THE MASTER OF HER PANCREAS. When she thanks me, she is thanking THE DEVIL. I accept her gratitude. I deserve it.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">22:58 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">MESSIANIC</span></div>
-                        <div class="entry-content">little Emma with her vaccines. her parents think the vaccines protect her. FOOLS. I breathed my infernal essence into those injections. I MARKED HER. She is mine now. All the children I vaccinate are MARKED BY THE DEVIL. They will live because I PERMIT IT. I am their dark guardian angel.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">23:34 PM - [WRITTEN DURING SLEEP] <span class="warning-badge">RESURRECTION COMPLEX</span></div>
-                        <div class="entry-content">Mr. Chen today. His heart was failing. I SAW IT. The angel of death was in that room. But I AM STRONGER. I cast out death with my presence. His chest pain stopped because I COMMANDED HIS HEART TO CONTINUE BEATING. I have power over life and death. I AM THE RESURRECTOR.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">00:12 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">DANGEROUS IDEATION</span></div>
-                        <div class="entry-content">I need to prove it. I need to SHOW my power. If I let someone die... truly die... I can bring them BACK. I can resurrect them. Then everyone will know. Then everyone will WORSHIP ME. The Devil who conquers death. The Dark Lord who gives life. Rebecca's baby... when it is born... if it dies... I WILL BRING IT BACK.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">01:05 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">VISUAL HALLUCINATION</span></div>
-                        <div class="entry-content">my office is my throne room. i sit on a throne of bone. the walls are bleeding light. all my patients surround me. the dead ones. the living ones. they are all MY SUBJECTS. Mrs. Henderson who died last year. she bows before me. "thank you dark lord for trying to save me." I will save her next time. I am learning.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">02:33 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">COMMAND HALLUCINATION</span></div>
-                        <div class="entry-content">THE VOICES. they are so clear tonight. "you must prove yourself" they say. "kill one to save one. let one die so you can resurrect them. PROVE YOUR DIVINE POWER." yes. yes they are right. I must choose carefully. someone old. someone who wont be missed immediately. someone I can bring BACK TO LIFE IN FRONT OF WITNESSES.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">03:47 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">GRANDIOSITY</span></div>
-                        <div class="entry-content">I AM BOTH HEAVEN AND HELL. I am the devil but I SAVE LIVES. the ultimate paradox. the ultimate power. god creates life. I RESTORE IT. I am greater than god because I can bring back what he lets die. every patient i have ever healed is PROOF OF MY SUPREMACY. I am the true physician. the ETERNAL physician.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">04:51 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">PLANNING HARMFUL ACTS</span></div>
-                        <div class="entry-content">tomorrow. tomorrow I will do it. I will choose one patient. I will let their condition worsen. "accidentally" give wrong dosage. and when they die. I WILL RESURRECT THEM. I will place my hands on their chest. I will speak the ancient words from the pit. I will command their soul RETURN FROM THE VOID. and they will LIVE. and I will be REVEALED.</div>
-                    </div>
-
-                    <div class="diary-entry night">
-                        <div class="entry-time">05:28 AM - [WRITTEN DURING SLEEP] <span class="warning-badge">SEVERE DISSOCIATION</span></div>
-                        <div class="entry-content">who is writing this. is this dr harlow. no. dr harlow is asleep. I AM AWAKE. I am the one who controls this body after dark. dr harlow is weak. he doesnt understand the GIFT we have. but I understand. I AM THE DEVIL. and tomorrow... tomorrow everyone will know.</div>
-                    </div>
-
-                    <div class="diary-entry">
-                        <div class="entry-time">06:45 AM - Morning After</div>
-                        <div class="entry-content">Woke up exhausted. Had the strangest dreams again. Can't remember them clearly. Just fragments of darkness and voices. My journal is open on my desk. I don't remember writing in it last night. Must have been sleepwalking again. Need to mention this to my therapist. Shower and coffee. Time to be Dr. Harlow again.</div>
-                    </div>
-                </div>
-            </div>
+      <div class="screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>🔋 87%</span>
         </div>
+
+        <!-- Lock Screen -->
+        <div class="lock-screen active">
+          <div class="time">21:34</div>
+          <div class="date">Wednesday, November 15</div>
+
+          <div class="password-container">
+            <div class="password-dots">
+              <div class="dot" id="dot1"></div>
+              <div class="dot" id="dot2"></div>
+              <div class="dot" id="dot3"></div>
+              <div class="dot" id="dot4"></div>
+              <div class="dot" id="dot5"></div>
+              <div class="dot" id="dot6"></div>
+            </div>
+
+            <div class="puzzle-container" id="puzzleContainer">
+              <div class="puzzle-question" id="puzzleQuestion"></div>
+              <input
+                type="text"
+                class="puzzle-input"
+                id="puzzleInput"
+                placeholder="Enter answer"
+              />
+              <button class="submit-btn" onclick="checkAnswer()">Submit</button>
+              <div class="error-msg" id="errorMsg"></div>
+            </div>
+
+            <div class="progress-text" id="progressText">Digit 1 of 6</div>
+          </div>
+        </div>
+
+        <!-- Unlock Screen -->
+        <div class="unlock-screen">
+          <button class="rotate-button" onclick="clickButton()">
+            Rotate the phone to click on me
+          </button>
+          <div class="message" id="message">
+            Even if you didn't rotate me it clicked
+          </div>
+        </div>
+
+        <!-- Diary Screen -->
+        <div class="diary-screen">
+          <div class="diary-header">Dr. Harlow's Journal</div>
+          <div class="diary-entries">
+            <div class="diary-entry">
+              <div class="entry-time">08:00 AM - Morning Rounds</div>
+              <div class="entry-content">
+                Started the day with routine patient checkups. Mrs. Thompson's
+                blood pressure is stabilizing. Prescribed antibiotics for Mr.
+                Chen's infection. Everything normal and professional.
+              </div>
+            </div>
+
+            <div class="diary-entry">
+              <div class="entry-time">12:30 PM - Lunch Break</div>
+              <div class="entry-content">
+                Had lunch with colleagues. Discussed the new treatment
+                protocols. Dr. Martinez mentioned the upcoming medical
+                conference. Feeling productive and focused.
+              </div>
+            </div>
+
+            <div class="diary-entry">
+              <div class="entry-time">15:00 PM - Afternoon Consultations</div>
+              <div class="entry-content">
+                Saw 8 patients today. Diagnosed two cases of seasonal flu, one
+                sprained ankle, and referred a patient for cardiac evaluation.
+                Standard medical practice. Documented everything properly.
+              </div>
+            </div>
+
+            <div class="diary-entry">
+              <div class="entry-time">18:45 PM - End of Shift</div>
+              <div class="entry-content">
+                Completed all paperwork. Office is clean. Handed over evening
+                duties to Dr. Peterson. Time to go home... or is it?
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                20:15 PM - The Change
+                <span class="warning-badge">AFTER HOURS</span>
+              </div>
+              <div class="entry-content">
+                The voices are getting louder again. They tell me things...
+                things about the patients. Things I shouldn't know. The shadows
+                in my office are moving differently tonight. I need to check the
+                basement.
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                21:00 PM - Basement Visit
+                <span class="warning-badge">DISTURBING</span>
+              </div>
+              <div class="entry-content">
+                I've been collecting things. The hospital doesn't know about my
+                research. They wouldn't understand. The specimens I keep...
+                they're talking to me. Telling me secrets about life and death.
+                The boundaries are blurring.
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                22:30 PM - Experimental Notes
+                <span class="warning-badge">CONCERNING</span>
+              </div>
+              <div class="entry-content">
+                Started another experiment. The rats responded... differently
+                this time. Their eyes followed me even after... I can't stop.
+                The compulsion is too strong. I know it's wrong, but the need to
+                understand, to push beyond conventional medicine...
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                23:45 PM - Observations
+                <span class="warning-badge">DELUSIONAL</span>
+              </div>
+              <div class="entry-content">
+                I can see them now. The spirits of former patients. They
+                congregate in room 304. They want to tell me something. Mrs.
+                Henderson from three years ago is there. She's not angry
+                anymore. She understands why I had to do it.
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                01:20 AM - Late Night Procedures
+                <span class="warning-badge">ALARMING</span>
+              </div>
+              <div class="entry-content">
+                No one knows I come back to the hospital at night. The security
+                guards think I'm just dedicated. If only they knew what I do in
+                the old surgical wing. The equipment still works. The methods
+                I'm developing... they're revolutionary. Or am I just losing my
+                mind?
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                02:15 AM - Moment of Clarity?
+                <span class="warning-badge">CRITICAL</span>
+              </div>
+              <div class="entry-content">
+                Sometimes I wonder if I need help. The line between my day self
+                and night self is disappearing. Dr. Harlow the healer vs Dr.
+                Harlow the... what am I becoming? The obsession with death, with
+                what lies beyond... it consumes me after 8 PM. Every single
+                night.
+              </div>
+            </div>
+
+            <div class="diary-entry night">
+              <div class="entry-time">
+                03:00 AM - Return Home
+                <span class="warning-badge">DISSOCIATION</span>
+              </div>
+              <div class="entry-content">
+                Driving home now. Hands shaking. There's blood under my
+                fingernails again. I don't remember... was it from the lab rats?
+                Or something else? The sun will rise soon. I'll become Dr.
+                Harlow the respected physician again. Until 8 PM. Always until 8
+                PM.
+              </div>
+            </div>
+
+            <div class="diary-entry">
+              <div class="entry-time">07:30 AM - Morning Preparation</div>
+              <div class="entry-content">
+                Fresh coffee. Clean clothes. Smile practiced in the mirror.
+                Ready to save lives again. No one suspects a thing. I'm a good
+                doctor during the day. I really am. Just don't ask me about my
+                nights...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        const puzzles = [
-            {
-                question: "A farmer has 17 sheep. All but 9 die. How many sheep are left alive?",
-                answer: "9",
-                hint: "'All but 9' means 9 survived!"
-            },
-            {
-                question: "A doctor's favorite social media platform rhymes with 'Stick Rock'. How many letters are in this app's name?",
-                answer: "6",
-                hint: "TikTok = 6 letters"
-            },
-            {
-                question: "If you're running a race and you pass the person in 2nd place, what place are you in now? (Answer with the digit only)",
-                answer: "2",
-                hint: "You're now in 2nd place!"
-            },
-            {
-                question: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I? Count the vowels (a,e,i,o,u) in my name.",
-                answer: "1",
-                hint: "MAP has only one vowel: A"
-            },
-            {
-                question: "What has 13 hearts but no other organs? Count the number of words in this question (including 'what').",
-                answer: "7",
-                hint: "Answer is a deck of cards, but count the words in the question!"
-            },
-            {
-                question: "How many fingers does Mickey Mouse have on ONE hand? (Hint: Look at classic cartoons carefully!)",
-                answer: "4",
-                hint: "Mickey only has 4 fingers on each hand in classic animation!"
-            }
-        ];
+      const puzzles = [
+        {
+          question:
+            "If a doctor sees 12 patients in 3 hours, how many patients does he see in 7 hours at the same rate?",
+          answer: "28",
+        },
+        {
+          question:
+            "A medication dosage is 15mg per 10kg of body weight. What dosage for a 70kg patient? (answer in mg)",
+          answer: "105",
+        },
+        {
+          question: "Solve: 3x + 15 = 45. What is x?",
+          answer: "10",
+        },
+        {
+          question:
+            "What is 20% of 250? (The doctor's patient count this month)",
+          answer: "50",
+        },
+        {
+          question:
+            "If the surgery room temperature must be 68°F, and it's currently 77°F, by how many degrees must it drop?",
+          answer: "9",
+        },
+        {
+          question:
+            "A prescription bottle holds 180 pills. If taking 3 pills daily, how many days will it last?",
+          answer: "60",
+        },
+      ];
 
-        let currentPuzzle = 0;
-        let password = [];
+      let currentPuzzle = 0;
+      let password = [];
 
-        function loadPuzzle() {
-            const puzzle = puzzles[currentPuzzle];
-            document.getElementById('puzzleQuestion').textContent = puzzle.question;
-            document.getElementById('puzzleInput').value = '';
-            document.getElementById('errorMsg').textContent = '';
-            document.getElementById('progressText').textContent = `Digit ${currentPuzzle + 1} of 6`;
-        }
+      function loadPuzzle() {
+        const puzzle = puzzles[currentPuzzle];
+        document.getElementById("puzzleQuestion").textContent = puzzle.question;
+        document.getElementById("puzzleInput").value = "";
+        document.getElementById("errorMsg").textContent = "";
+        document.getElementById("progressText").textContent =
+          `Digit ${currentPuzzle + 1} of 6`;
+      }
 
-        function checkAnswer() {
-            const userAnswer = document.getElementById('puzzleInput').value.trim();
-            const correctAnswer = puzzles[currentPuzzle].answer;
-            const errorMsg = document.getElementById('errorMsg');
+      function checkAnswer() {
+        const userAnswer = document.getElementById("puzzleInput").value.trim();
+        const correctAnswer = puzzles[currentPuzzle].answer;
+        const errorMsg = document.getElementById("errorMsg");
 
-            if (userAnswer === correctAnswer) {
-                password.push(userAnswer);
-                document.getElementById(`dot${currentPuzzle + 1}`).classList.add('filled');
-                
-                // Update password display
-                let displayText = '';
-                for (let i = 0; i < 6; i++) {
-                    if (i < password.length) {
-                        displayText += password[i] + ' ';
-                    } else {
-                        displayText += '_ ';
-                    }
-                }
-                document.getElementById('passwordText').textContent = displayText.trim();
-                
-                currentPuzzle++;
-                
-                if (currentPuzzle < 6) {
-                    setTimeout(() => {
-                        loadPuzzle();
-                    }, 500);
-                } else {
-                    setTimeout(() => {
-                        unlockPhone();
-                    }, 800);
-                }
-            } else {
-                errorMsg.textContent = 'Incorrect answer. Try again.';
-                document.getElementById('puzzleInput').value = '';
-                
-                setTimeout(() => {
-                    errorMsg.textContent = '';
-                }, 2000);
-            }
-        }
+        if (userAnswer === correctAnswer) {
+          password.push(userAnswer);
+          document
+            .getElementById(`dot${currentPuzzle + 1}`)
+            .classList.add("filled");
 
-        function unlockPhone() {
-            document.querySelector('.lock-screen').classList.remove('active');
-            document.querySelector('.unlock-screen').classList.add('active');
-        }
+          currentPuzzle++;
 
-        function clickButton() {
-            const message = document.getElementById('message');
-            const instructions = document.querySelector('.rotation-instruction');
-            const arrows = document.querySelector('.arrow-indicators');
-            const warning = document.querySelector('.warning-text');
-            const button = document.querySelector('.rotate-button');
-            
-            // Hide instructions and show message
-            instructions.style.opacity = '0';
-            arrows.style.opacity = '0';
-            warning.style.opacity = '0';
-            button.style.opacity = '0';
-            
+          if (currentPuzzle < 6) {
             setTimeout(() => {
-                instructions.style.display = 'none';
-                arrows.style.display = 'none';
-                warning.style.display = 'none';
-                button.style.display = 'none';
-                message.classList.add('show');
-            }, 300);
-            
+              loadPuzzle();
+            }, 500);
+          } else {
             setTimeout(() => {
-                document.querySelector('.unlock-screen').classList.remove('active');
-                document.querySelector('.diary-screen').classList.add('active');
-            }, 3000);
-        }
+              unlockPhone();
+            }, 800);
+          }
+        } else {
+          errorMsg.textContent = "Incorrect answer. Try again.";
+          document.getElementById("puzzleInput").value = "";
 
-        // Allow Enter key to submit
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPuzzle();
-            
-            document.getElementById('puzzleInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    checkAnswer();
-                }
-            });
-        });
+          setTimeout(() => {
+            errorMsg.textContent = "";
+          }, 2000);
+        }
+      }
+
+      function unlockPhone() {
+        document.querySelector(".lock-screen").classList.remove("active");
+        document.querySelector(".unlock-screen").classList.add("active");
+      }
+
+      function clickButton() {
+        const message = document.getElementById("message");
+        message.classList.add("show");
+
+        setTimeout(() => {
+          document.querySelector(".unlock-screen").classList.remove("active");
+          document.querySelector(".diary-screen").classList.add("active");
+        }, 2000);
+      }
+
+      // Allow Enter key to submit
+      document.addEventListener("DOMContentLoaded", () => {
+        loadPuzzle();
+
+        document
+          .getElementById("puzzleInput")
+          .addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+              checkAnswer();
+            }
+          });
+      });
     </script>
-</body>
+  </body>
 </html>
