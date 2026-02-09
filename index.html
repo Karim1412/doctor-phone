@@ -282,6 +282,140 @@
             text-align: center;
             font-style: italic;
         }
+
+        .hidden-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,107,53,0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hidden-button:hover {
+            background: rgba(255,107,53,0.3);
+            transform: scale(1.5);
+        }
+
+        .secret-document {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .document-paper {
+            width: 90%;
+            max-width: 320px;
+            background: #f4e8d8;
+            padding: 30px 25px;
+            border-radius: 5px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative;
+            font-family: 'Courier New', monospace;
+            color: #2c2c2c;
+            transform: rotate(-1deg);
+        }
+
+        .document-header {
+            text-align: center;
+            border-bottom: 2px solid #8b4513;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .document-stamp {
+            color: #cc0000;
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 3px;
+            transform: rotate(-5deg);
+            display: inline-block;
+            border: 3px solid #cc0000;
+            padding: 5px 15px;
+            margin-bottom: 10px;
+        }
+
+        .document-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .document-body {
+            font-size: 13px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .document-field {
+            margin: 15px 0;
+            padding-left: 10px;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: #8b4513;
+        }
+
+        .field-value {
+            margin-left: 10px;
+            color: #2c2c2c;
+        }
+
+        .signature-line {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #8b4513;
+            text-align: center;
+            font-style: italic;
+            font-size: 11px;
+        }
+
+        .close-document {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8b4513;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close-document:hover {
+            color: #cc0000;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 60px;
+            color: rgba(204, 0, 0, 0.1);
+            font-weight: bold;
+            pointer-events: none;
+            letter-spacing: 5px;
+        }
     </style>
 </head>
 <body>
@@ -347,6 +481,61 @@
                     <div class="warning-text">
                         ⚠️ TIME UNTIL EVENT ⚠️<br>
                         February 10, 2026 - 06:00:00
+                    </div>
+                </div>
+
+                <!-- Hidden Button -->
+                <button class="hidden-button" onclick="showDocument()" title=""></button>
+
+                <!-- Secret Document Overlay -->
+                <div class="secret-document" id="secretDocument">
+                    <div class="document-paper">
+                        <button class="close-document" onclick="closeDocument()">×</button>
+                        <div class="watermark">CONFIDENTIAL</div>
+                        
+                        <div class="document-header">
+                            <div class="document-stamp">CLASSIFIED</div>
+                            <div class="document-title">Ownership Certificate</div>
+                            <div style="font-size: 10px; margin-top: 5px; color: #666;">Document #HC-2026-0847</div>
+                        </div>
+
+                        <div class="document-body">
+                            <div class="document-field">
+                                <span class="field-label">OWNER NAME:</span>
+                                <span class="field-value">HSIN MAHMOUD</span>
+                            </div>
+
+                            <div class="document-field">
+                                <span class="field-label">ASSET DESCRIPTION:</span>
+                                <span class="field-value">"HEAD STATUE"</span>
+                            </div>
+
+                            <div class="document-field">
+                                <span class="field-label">REGISTRATION NO:</span>
+                                <span class="field-value">HS-78432-M</span>
+                            </div>
+
+                            <div class="document-field">
+                                <span class="field-label">DATE OF ACQUISITION:</span>
+                                <span class="field-value">January 15, 2024</span>
+                            </div>
+
+                            <div class="document-field">
+                                <span class="field-label">STATUS:</span>
+                                <span class="field-value">ACTIVE</span>
+                            </div>
+
+                            <div class="document-field">
+                                <span class="field-label">SECURITY LEVEL:</span>
+                                <span class="field-value" style="color: #cc0000; font-weight: bold;">HIGH PRIORITY</span>
+                            </div>
+
+                            <div class="signature-line">
+                                This document certifies the exclusive ownership rights<br>
+                                of the aforementioned asset to the named individual.<br><br>
+                                <strong>— Registry Authority —</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -494,6 +683,14 @@
 
             updateCountdown();
             setInterval(updateCountdown, 1000);
+        }
+
+        function showDocument() {
+            document.getElementById('secretDocument').style.display = 'flex';
+        }
+
+        function closeDocument() {
+            document.getElementById('secretDocument').style.display = 'none';
         }
     </script>
 </body>
